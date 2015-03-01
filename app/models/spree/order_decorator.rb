@@ -1,13 +1,13 @@
 module OrderExtensions
-  def self.prepended(base)
-    Spree::Order.state_machine.before_transition to: :confirm, do: :add_store_credit_payments
-  end
-
-
-  def finalize!
-    create_gift_cards
-    super
-  end
+  # def self.prepended(base)
+  #   Spree::Order.state_machine.before_transition to: :confirm, do: :add_store_credit_payments
+  # end
+  #
+  #
+  # def finalize!
+  #   create_gift_cards
+  #   super
+  # end
 
   def create_gift_cards
     line_items.each do |item|
