@@ -4,11 +4,6 @@ module OrderExtensions
   end
 
 
-  def finalize!
-    create_gift_cards
-    super
-  end
-
   def create_gift_cards
     line_items.each do |item|
       item.quantity.times do
