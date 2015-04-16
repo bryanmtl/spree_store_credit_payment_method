@@ -37,9 +37,9 @@ module SpreeStoreCredits::PaymentDecorator
     end
 
     def invalidate_old_payments
-      return if store_credit? # store credits shouldn't invalidate other payment types
-      order.payments.with_state('checkout').where("id != ?", self.id).each do |payment|
-        payment.invalidate! unless payment.store_credit?
+      return if self.source_type == "Spree::StoreCredit" # store credits shouldn't invalidate other payment types
+      order.payments.with_state('checkout').where("id != ?", self.id).where.not(source_type: "Spree::StoreCredit").each do |payment|
+        payment.invalidate!
       end
     end
   end
