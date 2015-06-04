@@ -21,7 +21,7 @@ module OrderExtensions
       payment_method = Spree::PaymentMethod.find_by_type('Spree::PaymentMethod::StoreCredit')
       raise "Store credit payment method could not be found" unless payment_method
 
-      user.store_credits.order_by_priority.each do |credit|
+      user.store_credits.of_currency(self.currency).order_by_priority.each do |credit|
         break if remaining_total.zero?
         next if credit.amount_remaining.zero?
         next unless credit.valid?
