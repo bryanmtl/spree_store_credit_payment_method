@@ -13,6 +13,8 @@ module OrderExtensions
   end
 
   def add_store_credit_payments
+    return if outstanding_balance <= 0.0 # Free order
+    
     payments.store_credits.where(state: 'checkout').map(&:invalidate!)
 
     remaining_total = outstanding_balance
