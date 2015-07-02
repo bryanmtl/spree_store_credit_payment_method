@@ -20,7 +20,7 @@ module OrderExtensions
     remaining_total = outstanding_balance
 
     if user && user.store_credits.any?
-      payment_method = Spree::PaymentMethod.find_by_type('Spree::PaymentMethod::StoreCredit')
+      payment_method = Spree::PaymentMethod.available.find_by_type('Spree::PaymentMethod::StoreCredit')
       raise "Store credit payment method could not be found" unless payment_method
 
       user.store_credits.of_currency(self.currency).order_by_priority.each do |credit|
